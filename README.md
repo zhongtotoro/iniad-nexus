@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# INIAD Nexus
 
-## Getting Started
+INIAD生のための、学内サービス（Toyo-net, Slack, MOOCSなど）を一元管理するポータルPWAアプリです。
 
-First, run the development server:
+## 公開リンク(スマホ対応済)
+
+https://iniad-nexus.vercel.app/
+
+## 開発の始め方
 
 ```bash
+# 1. 必要なライブラリを入れる（最初に1回だけ）
+npm install
+
+# 2. 開発サーバーを起動する
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+
+作業の進め方
+
+1. 作業を始める時（最新にする）
+まず main ブランチに戻り、最新の状態を取り込む
+
+git checkout main
+git pull origin main
+
+2. 機能ごとに作業用ブランチを作る
+直接 main をいじらず別ブランチを変更する
+
+git branch ブランチ名
+
+3.PR作成
+
+# 変更をステージング
+git add .
+
+# メッセージを付けて保存（何をしたか分かりやすく！）
+git commit -m "コミット内容"
+
+# GitHubにアップロード
+# ※ブランチ名はさっき作った自分のブランチ名
+git push origin ブランチ名
+
+
+4. マージ (Pull Request)
+GitHubの画面を開き、「Compare & pull request」ボタンを押して、main に取り込んでもらう申請を出す
+
+※PRは誰が通してもOK
+
+
+
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 技術スタック
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Framework:** Next.js (App Router)
+- **Language:** TypeScript
+- **Styling:** Tailwind CSS（仮）
+- **Deployment:** Vercel
+- **PWA:** next-pwa (予定)
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## **開発フェーズ (Roadmap)**
 
-## Learn More
+- **Phase 1: リンク・ランチャー機能**
+  - [x] Next.js環境構築 & Vercelデプロイ
+  - [x] PWA化（ホーム画面追加）
+  - [ ] 主要サービス（Ace, G, Slack, MOOCS）へのリンク実装
+  - [ ] 各サービスからiniad-nexusへ戻れるようにする
 
-To learn more about Next.js, take a look at the following resources:
+- **Phase 2: UI/UXの向上**
+  - [ ] INIADライクなUIデザインの実装
+  - [ ] 各サービスのロゴ画像の配置
+  - [ ] アニメーションなどのインタラクション追加
+  - [ ] iPhone / Android での表示最適化
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Phase 3: 機能拡張（検討中）**
+  - [ ] スケジュール機能の実装
+  - [ ] またはGoogle Calendar API連携（スケジュールの表示）
+  - [ ] その他欲しい拡張機能を追加して可
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  **以下セキュリティ上の問題を考慮して検討中**
+  - [ ] Supabaseでユーザー機能(Googleログイン)
+  - [ ] カスタムリンク追加機能（ユーザーが好きなURLを登録できる）
+  - [ ]
+  - _※課題の自動取得機能については、セキュリティとAPIの兼ね合いで調査中。_
