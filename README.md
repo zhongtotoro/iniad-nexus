@@ -17,16 +17,20 @@ npm run dev
 
 作業の進め方
 
-1. 作業を始める時（最新にする）
-まず main ブランチに戻り、最新の状態を取り込む
+1.作業を始める時（最新にする）
+#まず main ブランチに戻り、最新の状態を取り込む
 
 git checkout main
 git pull origin main
 
-2. 機能ごとに作業用ブランチを作る
-直接 main をいじらず別ブランチを変更する
+git checkout 自分のブランチ
+git merge main
+
+2.機能ごとに作業用ブランチを作る
+#直接 main をいじらず別ブランチを変更する
 
 git branch ブランチ名
+git checkout 自分のブランチ
 
 3.PR作成
 
@@ -37,13 +41,12 @@ git add .
 git commit -m "コミット内容"
 
 # GitHubにアップロード
-# ※ブランチ名はさっき作った自分のブランチ名
-git push origin ブランチ名
+# ブランチ名は自分のいるブランチ名
+git push origin 自分のブランチ名
 
 
-4. マージ (Pull Request)
+4.マージ (Pull Request)
 GitHubの画面を開き、「Compare & pull request」ボタンを押して、main に取り込んでもらう申請を出す
-
 ※PRは誰が通してもOK
 
 
