@@ -8,7 +8,7 @@ https://iniad-nexus.vercel.app/
 
 ## 開発の始め方
 
-```bash
+````bash
 # 1. 必要なライブラリを入れる（最初に1回だけ）
 npm install
 
@@ -49,9 +49,39 @@ git push origin 自分のブランチ名
 GitHubの画面を開き、「Compare & pull request」ボタンを押して、main に取り込んでもらう申請を出す
 ※PRは誰が通してもOK
 
+5.作業中に main が進んでしまった時
+PRを出そうとしたら main が更新されていたと時
+
+```bash
+# 1. まず自分の今の作業をコミットして保存する
+git add .
+git commit -m "作業内容"
+
+# 2. mainブランチに移動して、最新の状態に更新する
+git checkout main
+git pull origin main
+
+# 3. 自分の作業ブランチに戻る
+git checkout feat/自分のブランチ名
+
+# 4. 最新の main を自分のブランチに取り込む（合体）
+git merge main
 
 
-```
+※ 手順4で コンフリクトと表示された場合 同じファイルの同じ行を、あなたと他の人が同時に編集しています。 VS Code上で「<<<< head」のような記号が出るので、どちらを残すか修正し、再度
+
+git add .
+git commit
+
+してください。
+
+
+#5. コンフリクトがなければ、そのままアップロード
+
+git push origin 自分のブランチ名
+
+
+````
 
 ## 技術スタック
 
