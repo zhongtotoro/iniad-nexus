@@ -1,41 +1,40 @@
+// app/schedule/page.tsx
 'use client';
 
 import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
-import Link from "next/link";
 
-export default function CalendarPage() {
+export default function SchedulePage() {
     const { data: session, status } = useSession();
-
-  // 認証チェック中
-    if (status === "loading") return <p className="p-10 text-center">読み込み中...</p>;
-
-  // ログインしていない場合はホームへ戻す
+    // 認証チェック中
+    if (status === "loading") return <div className="p-10 text-center text-gray-500">読み込み中...</div>;
+    // 認可されていない場合はホームへ強制リダイレクト
     if (!session) {
         redirect("/");
     }
     return (
-    <div className="p-4 md:p-8">
-        <header className="flex justify-between items-center mb-6">
-            <Link href="/" className="text-blue-600 hover:underline">← ホームへ戻る</Link>
+    <div className="min-h-screen bg-gray-100">
+        <nav className="bg-white shadow-sm p-4 flex justify-between items-center">
+            <h2 className="font-semibold text-lg text-blue-900">スケジュール</h2>
             <button 
             onClick={() => signOut({ callbackUrl: '/' })}
-            className="text-sm text-red-500 border border-red-500 px-3 py-1 rounded hover:bg-red-50"
+            className="text-sm text-gray-500 hover:text-red-500 transition"
             >
                 ログアウト
             </button>
-        </header>
-
-        <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-200">
-            <iframe
-            src="https://calendar.google.com/calendar/embed?src=primary&ctz=Asia/Tokyo"
-            style={{ border: 0 }}
-            width="100%"
-            height="700px"
-            frameBorder="0"
-            scrolling="no"
-            ></iframe>
-        </div>
+        </nav>
+        <main className="p-4 md:p-8 h-[calc(100vh-80px)]">
+            <div className="bg-white rounded-xl shadow-lg overflow-hidden h-full border border-gray-200">
+                <iframe
+                src="https://calendar.google.com/calendar/embed?src=primary&ctz=Asia/Tokyo"
+                style={{ border: 0 }}
+                width="100%"
+                height="100%"
+                frameBorder="0"
+                scrolling="no"
+                ></iframe>
+            </div>
+        </main>
     </div>
     );
 }

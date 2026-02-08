@@ -1,5 +1,7 @@
 'use client';
 import { signIn, useSession } from "next-auth/react";
+import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import Link from "next/link";
 export default function Home() {
   // リンクのデータを配列で管理
@@ -14,8 +16,14 @@ export default function Home() {
     { name: 'ChatGPT', url: 'https://chatgpt.com/', color: 'bg-teal-600', fullWidth: true },
     ];
   const { data: session } = useSession();
+  const router = useRouter()
+  useEffect(()=>{
+    if(session){
+      router.replace("/schedule");
+    }
+  },[session,router])
   return (
-    <main className="min-h-screen p-8 bg-gray-900 text-white">
+    <main className="min-h-screen p-8 bg-gray-900 text-white ">
       {/* タイトル部分 */}
       <h1 className="text-3xl font-bold text-center mb-8">
         INIAD Nexus
@@ -34,30 +42,16 @@ export default function Home() {
           </a>
         ))}
       </div>
-      <div className="flex flex-col items-center justify-center min-h-screen bg-gray-50">
-        {!session ? (
-          // 未ログイン時
-          <div className="text-center">
-            <p className="mb-4 text-gray-600">課題を管理するにはログインしてください</p>
-            <button
-            onClick={() => signIn("google")}
-            className="bg-white border border-gray-300 px-6 py-3 rounded-lg shadow-sm flex items-center gap-2 hover:bg-gray-50 transition"
-            >
-              <img src="https://www.google.com/favicon.ico" className="w-5 h-5" alt="google" />
-              Googleでログイン
-            </button>
-          </div>
-        ) : (
-          // ログイン済み
-          <div className="text-center">
-            <p className="mb-6 text-xl">ようこそ、{session.user?.name}さん</p>
-            <Link 
-            href="/schedule" 
-            className="bg-blue-600 text-white px-8 py-4 rounded-xl text-lg font-bold hover:bg-blue-700 shadow-lg transition transform hover:scale-105 inline-block"
-            >
-              自分のカレンダーを確認する →
-            </Link>
-          </div>
+      <div className="mt-8 rounded-2xl flex flex-col items-center justify-center">
+        {!session && (
+          <button
+            // callbackUrl を指定することで、認可後に自動遷移します
+            onClick={() => signIn("google", { callbackUrl: "/schedule" })}
+            className="flex items-center justify-center gap-3 bg-white border border-gray-300 text-gray-700 px-6 py-3 rounded-lg font-medium hover:bg-gray-50 transition-all shadow-sm"
+          >
+            <img src="https://www.google.com/favicon.ico" alt="G" className="w-5 h-5" />
+            GoogleCalendarを開く
+          </button>
         )}
       </div>
     </main>
