@@ -2,13 +2,17 @@
 import { signIn, useSession } from "next-auth/react";
 import Link from "next/link";
 export default function Home() {
-  // ここにリンクのデータを作っておきます
+  // リンクのデータを配列で管理
   const apps = [
     { name: 'Toyo-net ACE', url: 'https://www.toyo.ac.jp/', color: 'bg-blue-600' },
-    { name: 'Toyo-net G', url: 'https://g-sys.toyo.ac.jp/', color: 'bg-green-600' },
+    { name: 'Toyo-net G', url: 'https://g-sys.toyo.ac.jp/portal/', color: 'bg-green-600' },
     { name: 'INIAD MOOCS', url: 'https://moocs.iniad.org/', color: 'bg-purple-600' },
     { name: 'Slack', url: 'slack://open', color: 'bg-red-500' }, // Slackアプリを開く
-  ];
+    { name: 'Classroom', url: 'https://classroom.google.com/', color: 'bg-amber-500' },
+    { name: 'Gemini', url: 'https://gemini.google.com/', color: 'bg-indigo-500' },
+    // ChatGPTだけ横長にするための設定（fullWidth）を勝手につけました！不要なら消してOK
+    { name: 'ChatGPT', url: 'https://chatgpt.com/', color: 'bg-teal-600', fullWidth: true },
+    ];
   const { data: session } = useSession();
   return (
     <main className="min-h-screen p-8 bg-gray-900 text-white">
