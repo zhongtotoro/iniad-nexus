@@ -63,8 +63,8 @@ GitHubの画面を開き、「Compare & pull request」ボタンを押して、m
 - **Phase 1: リンク・ランチャー機能**
   - [x] Next.js環境構築 & Vercelデプロイ
   - [x] PWA化（ホーム画面追加）
-  - [ ] 主要サービス（Ace, G, Slack, MOOCS）へのリンク実装
-  - [ ] 各サービスからiniad-nexusへ戻れるようにする
+  - [x] 主要サービス（Ace, G, Slack, MOOCS）へのリンク実装
+  - [x] 各サービスからiniad-nexusへ戻れるようにする⇒タブ遷移に任せるでいったん解決
 
 - **Phase 2: UI/UXの向上**
   - [ ] INIADライクなUIデザインの実装
@@ -73,7 +73,7 @@ GitHubの画面を開き、「Compare & pull request」ボタンを押して、m
   - [ ] iPhone / Android での表示最適化
 
 - **Phase 3: 機能拡張（検討中）**
-  - [ ] スケジュール機能の実装
+  - [x] スケジュール機能の実装
   - [ ] またはGoogle Calendar API連携（スケジュールの表示）
   - [ ] その他欲しい拡張機能を追加して可
 
