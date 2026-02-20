@@ -5,7 +5,7 @@ import { useSession, signOut } from "next-auth/react";
 import { redirect } from "next/navigation";
 
 export default function SchedulePage() {
-    const { data: session, status } = useSession();
+    const { data: session, status } = useSession() || {}; //npm run buildで引っかかるので後ろ付け足した
     // 認証チェック中
     if (status === "loading") return <div className="p-10 text-center text-gray-500">読み込み中...</div>;
     // 認可されていない場合はホームへ強制リダイレクト
