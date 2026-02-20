@@ -47,7 +47,7 @@ export default function Home() {
 
   ];
 
-  const [user, setUser] = useState<unknown>(null);
+  // const [user, setUser] = useState<unknown>(null);
   
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
