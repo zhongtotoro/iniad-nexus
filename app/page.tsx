@@ -45,9 +45,13 @@ export default function Home() {
 
 
   return (
-    <main className="min-h-screen p-8 bg-gray-900 text-white ">
+    <main className="mb-16 min-h-screen p-8 bg-gray-900 text-white ">
       {/* タイトル部分 */}
       <h1 className="text-3xl font-bold text-center mb-8">INIAD Nexus</h1>
+      {/* 2. カレンダー部分 */}
+      <div className="mb-8">
+        <Calender user={supabaseUser} />
+      </div>
       {/* アプリのアイコンを並べる部分 */}
       <div className="grid grid-cols-2 gap-4 max-w-sm mx-auto">
         {apps.map((app) => (
@@ -62,7 +66,6 @@ export default function Home() {
           </a>
         ))}
       </div>
-        <Calender user={supabaseUser} />
     </main>
   );
 }

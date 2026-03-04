@@ -4,6 +4,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 import BottomNav from './components/BottomNav';
+import SwipeMenu from './components/SwipeMenu'
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -29,9 +30,13 @@ export default function RootLayout({
     <html lang="ja">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <Providers>
-          <main className="pb-20">
+          <SwipeMenu />
+
+          {/*  className="pt-24 pb-16 min-h-screen"背景色を指定せず、各ページ（children）の色が見えるようにする */}
+          <main>
             {children}
           </main>
+
           <BottomNav />
         </Providers>
       </body>
