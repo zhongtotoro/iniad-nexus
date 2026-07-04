@@ -6,9 +6,6 @@ import type { SemesterType, TimetableEntry } from '@/types/timetable'
 import { currentAcademicYear, DAYS, PERIODS } from '@/types/timetable'
 import { fetchTimetable } from '@/utils/supabase/timetable'
 
-const HOME_DAYS = [...DAYS,] as const
-const DOT_COLORS = ['#b9a5ae', '#9a7899', '#846188', '#efd483', '#e8c177', '#dda068', '#d98242']
-
 /** 現在の学期を4月〜9月=spring、10月〜3月=fall で判定 */
 function currentSemester(): SemesterType {
   return new Date().getMonth() < 9 ? 'spring' : 'fall'

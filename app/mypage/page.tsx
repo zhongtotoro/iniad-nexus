@@ -8,6 +8,14 @@ import { fetchFriendCount, fetchMyProfile } from '@/utils/supabase/profile'
 import ProfileEditModal from '../components/mypage/ProfileEditModal'
 import BottomNav from '@/app/components/BottomNav'
 
+const QR_PLACEHOLDER_CELLS = [
+  true, true, true, false, true,
+  true, false, true, false, true,
+  true, true, false, true, true,
+  false, true, false, true, false,
+  true, false, true, true, true,
+]
+
 export default function MyPage() {
   const [profile,     setProfile]     = useState<Profile | null>(null)
   const [friendCount, setFriendCount] = useState(0)
@@ -158,10 +166,10 @@ export default function MyPage() {
             {/* QRのプレースホルダーグリッド */}
             <div className="w-28 h-28 rounded-xl bg-white border border-slate-200 flex items-center justify-center shadow-sm">
               <div className="grid grid-cols-5 gap-[3px] opacity-20">
-                {Array.from({ length: 25 }).map((_, i) => (
+                {QR_PLACEHOLDER_CELLS.map((isFilled, i) => (
                   <div
                     key={i}
-                    className={`w-4 h-4 rounded-[2px] ${Math.random() > 0.4 ? 'bg-slate-800' : 'bg-transparent'}`}
+                    className={`w-4 h-4 rounded-[2px] ${isFilled ? 'bg-slate-800' : 'bg-transparent'}`}
                   />
                 ))}
               </div>

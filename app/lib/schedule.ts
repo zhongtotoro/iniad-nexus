@@ -7,6 +7,8 @@ export type Course = {
   room?: string;       // 教室 (JSONには含まれていないため今回は空)
 };
 
+export type ScheduleData = Record<string, string[]>;
+
 const STORAGE_KEY = 'iniad_nexus_timetable';
 
 export const PERIODS = [
@@ -18,7 +20,17 @@ export const PERIODS = [
   { id: 6, start: "18:15", end: "19:45" },
 ];
 
-export function saveScheduleToStorage(json: any) {
+export function isScheduleData(value: unknown): value is ScheduleData {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) {
+    return false;
+  }
+
+  return Object.values(value).every(
+    (dayArray) => Array.isArray(dayArray) && dayArray.every((title) => typeof title === 'string'),
+  );
+}
+
+export function saveScheduleToStorage(json: ScheduleData) {
   if (typeof window !== 'undefined') {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(json));
   }
@@ -26,14 +38,15 @@ export function saveScheduleToStorage(json: any) {
 
 // JSONデータを扱いやすい配列データに変換する関数
 export function getScheduleData(): Course[] {
-  let rawData: Record<string, string[]> = {};
+  let rawData: ScheduleData = {};
 
   // ブラウザ環境ならLocal Storageから読み込む
   if (typeof window !== 'undefined') {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored) {
       try {
-        rawData = JSON.parse(stored);
+        const parsed = JSON.parse(stored);
+        rawData = isScheduleData(parsed) ? parsed : {};
       } catch (e) {
         console.error("時間割データの読み込みに失敗しました", e);
       }

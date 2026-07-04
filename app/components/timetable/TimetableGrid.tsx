@@ -27,20 +27,10 @@ const PERIOD_TIMES: Record<number, string> = {
   6: '18:15-19:45',
 }
 
-interface YearSemesterOption {
+type YearSemesterOption = {
   academic_year: number
   semester: SemesterType
   isAfterGrad: boolean
-}
-
-function buildOptions(yearRange: number[], enrollmentYear: number): YearSemesterOption[] {
-  const options: YearSemesterOption[] = []
-  for (const year of yearRange) {
-    for (const sem of ['spring', 'fall'] as SemesterType[]) {
-      options.push({ academic_year: year, semester: sem, isAfterGrad: year >= enrollmentYear + 4 })
-    }
-  }
-  return options
 }
 
 export default function TimetableGrid() {
