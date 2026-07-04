@@ -1,7 +1,7 @@
 'use client';
 
 import { ChangeEvent, useRef, useState } from 'react';
-import { saveScheduleToStorage } from '@/app/lib/schedule';
+import { isScheduleData, saveScheduleToStorage } from '@/app/lib/schedule';
 
 export default function TimetableUploader() {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -18,7 +18,7 @@ export default function TimetableUploader() {
       try {
         const json = JSON.parse(event.target?.result as string);
         // 簡易的なバリデーション（キー "1" があるか確認）
-        if (!json["1"] || !Array.isArray(json["1"])) {
+        if (!isScheduleData(json) || !json["1"]) {
           alert("INIAD形式のJSONファイルではないようです。");
           return;
         }
@@ -26,7 +26,7 @@ export default function TimetableUploader() {
         saveScheduleToStorage(json);
         alert("時間割を更新しました！");
         window.location.reload(); // 画面を更新してデータを反映
-      } catch (error) {
+      } catch {
         alert("ファイルの読み込みに失敗しました。正しいJSONファイルを選択してください。");
       } finally {
         setIsUploading(false);

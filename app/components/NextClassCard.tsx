@@ -1,18 +1,28 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useSyncExternalStore } from 'react';
 import { Course, getNextClass, PERIODS } from '@/app/lib/schedule'; 
 
+const subscribeToSchedule = () => () => {};
+const getServerSnapshot = (): Course | null => null;
+let hasNextClassSnapshot = false;
+let nextClassSnapshot: Course | null = null;
+
+const getClientSnapshot = (): Course | null => {
+  if (!hasNextClassSnapshot) {
+    nextClassSnapshot = getNextClass();
+    hasNextClassSnapshot = true;
+  }
+
+  return nextClassSnapshot;
+};
+
 export default function NextClassCard() {
-  const [nextClass, setNextClass] = useState<Course | null>(null);
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-    setNextClass(getNextClass());
-  }, []);
-
-  if (!mounted) return null;
+  const nextClass = useSyncExternalStore(
+    subscribeToSchedule,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
 
   if (!nextClass) {
     return (
