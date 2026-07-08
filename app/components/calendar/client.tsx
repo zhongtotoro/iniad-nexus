@@ -2,9 +2,13 @@
 
 import LoginPage from "../../login/page"; // 既存のログインコンポーネント
 
-export default function Calender({ user }: { user: any }) {
+type CalendarUser = {
+  email?: string | null;
+} | null;
+
+export default function Calender({ user }: { user: CalendarUser }) {
   // 1. 未ログインならログイン画面を出す
-  if (!user) {
+  if (!user?.email) {
     return <LoginPage />;
   }
 
