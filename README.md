@@ -10,7 +10,8 @@ https://iniad-nexus.vercel.app/
 
 ```bash
 # 1. 必要なライブラリを入れる（最初に1回だけ）
-npm install
+※npm installからnpm ci に変更
+npm ci
 
 # 2. 開発サーバーを起動する
 npm run dev
@@ -25,8 +26,6 @@ npm run dev
 ```bash
 git checkout main
 git pull origin main
-
-git checkout 自分のブランチ
 git merge main
 ```
 
